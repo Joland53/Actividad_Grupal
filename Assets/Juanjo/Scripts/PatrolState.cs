@@ -20,7 +20,7 @@ public class PatrolState : State<EnemyController>
     public override void OnEnterState(EnemyController controller)
     {
         base.OnEnterState(controller);
-
+        
         foreach (Transform punto in ruta)
         {
             puntosDeRuta.Add(punto.position);
