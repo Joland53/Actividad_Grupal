@@ -12,6 +12,7 @@ public class EnemyController : Controller
 
     private State<EnemyController> currentState;
     private NavMeshAgent agent;
+    private Transform target;
 
     private PatrolState patrolState;
     private ChaseState chaseState;
