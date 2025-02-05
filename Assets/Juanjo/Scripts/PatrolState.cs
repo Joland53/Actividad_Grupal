@@ -9,6 +9,9 @@ public class PatrolState : State<EnemyController>
     private Transform ruta;
 
     [SerializeField]
+    private float patrolVelocity;
+
+    [SerializeField]
     private float tiempoDeEspera;
 
 
@@ -27,6 +30,11 @@ public class PatrolState : State<EnemyController>
         }
 
         destinoActual = puntosDeRuta[indicePuntoActual];
+
+        controller.Agent.speed = patrolVelocity;
+        controller.Agent.stoppingDistance = 0;
+        controller.Agent.acceleration = 8;
+
         StartCoroutine(PatrullarYEsperar());
     }
     public override void OnUpdateState()
@@ -40,6 +48,7 @@ public class PatrolState : State<EnemyController>
             {
                 if (Vector3.Angle(transform.forward, direccionATarget) <= controller.AnguloVision / 2)
                 {
+                    controller.Target = collsDetectados[0].transform;
                     controller.ChangeState(controller.ChaseState);
                 }
             }
