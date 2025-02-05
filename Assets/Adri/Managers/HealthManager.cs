@@ -7,16 +7,25 @@ using UnityEngine;
 public class HealthManager : ScriptableObject
 {
     public event Action<float> OnPlayerDamaged;
-    // Start is called before the first frame update
+    public event Action OnPlayerDamagedSound;
 
     private float playerHealth = 1f;
     private float damageValue = 0.05f;
 
     public void PlayerDamaged()
     {
+        if (playerHealth <= 0)
+        {
+            Debug.Log ("Has muerto");
+            /*
+                SceneManager.LoadScene (GAMEOVERSCENE);
+            */
+        }
+
         playerHealth -= damageValue;
         Debug.Log("Current Health: " + playerHealth);
         OnPlayerDamaged?.Invoke(playerHealth);
+        OnPlayerDamagedSound?.Invoke();
     }
 
     public void ResetManager()

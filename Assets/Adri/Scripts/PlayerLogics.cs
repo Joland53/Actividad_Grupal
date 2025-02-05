@@ -25,6 +25,7 @@ public class PlayerLogics : MonoBehaviour
 
     void Update()
     {
+        
         float hInput = Input.GetAxisRaw("Horizontal");  
         float vInput = Input.GetAxisRaw("Vertical");    
         

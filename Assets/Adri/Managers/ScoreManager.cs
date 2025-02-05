@@ -9,6 +9,8 @@ public class ScoreManager : ScriptableObject
 
     public event Action<int> OnPickedUpCoin;
     public event Action<int> UpdateScore;
+    public event Action OnCollectedCoinSound;
+
     private int collectedCoins = 0;
     private int points = 0;
 
@@ -19,6 +21,8 @@ public class ScoreManager : ScriptableObject
         Debug.Log("Collected coins: " + collectedCoins);
         OnPickedUpCoin?.Invoke(collectedCoins);
         UpdateScore?.Invoke(points);
+        OnCollectedCoinSound?.Invoke();
+        
     }
 
 
