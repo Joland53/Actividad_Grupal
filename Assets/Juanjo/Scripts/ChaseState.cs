@@ -10,6 +10,7 @@ public class ChaseState : State<EnemyController>
     {
         base.OnEnterState(controller);
 
+        controller.Agent.isStopped = false;
         controller.Agent.speed = chaseVelocity;
         controller.Agent.stoppingDistance = controller.AttackDistance;
         controller.Agent.acceleration = 1000000f; // Para que no haya aceleración.

@@ -32,6 +32,7 @@ public class PatrolState : State<EnemyController>
         destinoActual = puntosDeRuta[indicePuntoActual];
 
         controller.Agent.speed = patrolVelocity;
+        controller.Agent.isStopped = false;
         controller.Agent.stoppingDistance = 0;
         controller.Agent.acceleration = 8;
 
