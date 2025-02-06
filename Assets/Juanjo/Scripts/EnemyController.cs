@@ -8,13 +8,19 @@ public class EnemyController : Controller
     [SerializeField] private float rangoVision;
     [SerializeField] private float anguloVision;
     [SerializeField] private float attackDistance;
+    [SerializeField] private float vidaEnemy;
     [SerializeField] private LayerMask queEsTarget;
     [SerializeField] private LayerMask queEsObstaculo;
+
+    [SerializeField] private ScoreManager scoreManagerSO;
 
     private State<EnemyController> currentState;
     private NavMeshAgent agent;
     private Transform target;
-
+    private Vector3 ultimaPosicionConocida;
+    private SurprisedState surprisedState;
+    private AlertState alertState;
+    private DeadState deadState;
     private PatrolState patrolState;
     private ChaseState chaseState;
     private AttackState attackState;
@@ -28,8 +34,14 @@ public class EnemyController : Controller
     public PatrolState PatrolState { get => patrolState; }
     public ChaseState ChaseState { get => chaseState;  }
     public AttackState AttackState { get => attackState;}
+    public AlertState AlertState { get => alertState; }
+    public SurprisedState SurprisedState { get => surprisedState; }
+    public DeadState DeadState { get => deadState; }
     public Transform Target { get => target; set => target = value; }
     public float AttackDistance { get => attackDistance; }
+    public Vector3 UltimaPosicionConocida { get => ultimaPosicionConocida; set => ultimaPosicionConocida = value; }
+    public float VidaEnemy { get => vidaEnemy; }
+    public ScoreManager ScoreManagerSO { get => scoreManagerSO; set => scoreManagerSO = value; }
     #endregion
 
     private void Awake()
@@ -37,14 +49,12 @@ public class EnemyController : Controller
         patrolState = GetComponent<PatrolState>();
         chaseState = GetComponent<ChaseState>();
         attackState = GetComponent<AttackState>();
+        surprisedState = GetComponent<SurprisedState>();
+        alertState = GetComponent<AlertState>();
+        deadState = GetComponent<DeadState>();
         agent = GetComponent<NavMeshAgent>();
-
+ 
         ChangeState(patrolState);
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame
@@ -63,5 +73,19 @@ public class EnemyController : Controller
         }
         currentState = newState; //Mi estado actual pasa a ser el nuevo.
         currentState.OnEnterState(this);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Bullet"))
+        {
+            vidaEnemy -= 10;
+            if (vidaEnemy <= 0)
+            {
+                //scoreManagerSO.DeadEnemy();
+                ChangeState(deadState);
+            }
+            
+        }
     }
 }

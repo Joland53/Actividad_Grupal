@@ -44,14 +44,16 @@ public class PatrolState : State<EnemyController>
         if (collsDetectados.Length > 0) //Hay al menos un target dentro del rango. //1
         {
             Vector3 direccionATarget = (collsDetectados[0].transform.position - transform.position).normalized;
+            float distancia = Vector3.Distance(transform.position, collsDetectados[0].transform.position);
 
-            if (!Physics.Raycast(transform.position, direccionATarget, controller.RangoVision, controller.QueEsObstaculo)) //2
+            bool jugadorEnVision = Vector3.Angle(transform.forward, direccionATarget) <= controller.AnguloVision / 2;
+            bool obstaculoEnMedio = Physics.Raycast(transform.position, direccionATarget, distancia, controller.QueEsObstaculo);
+
+            if (jugadorEnVision && !obstaculoEnMedio)
             {
-                if (Vector3.Angle(transform.forward, direccionATarget) <= controller.AnguloVision / 2)
-                {
                     controller.Target = collsDetectados[0].transform;
-                    controller.ChangeState(controller.ChaseState);
-                }
+                    controller.ChangeState(controller.SurprisedState);
+                
             }
 
         }
