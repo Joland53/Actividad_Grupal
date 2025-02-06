@@ -10,7 +10,8 @@ public class ScoreManager : ScriptableObject
     public event Action<int> OnPickedUpCoin;
     public event Action<int> UpdateScore;
     public event Action OnCollectedCoinSound;
-    public event Action OnDeadEnemy;
+    public event Action OnDeadEnemyMSG;
+    public event Action OnPickedUpCoinMSG;
 
     private int collectedCoins = 0;
     private int points = 0;
@@ -20,9 +21,13 @@ public class ScoreManager : ScriptableObject
         collectedCoins++;
         points += 20;
         Debug.Log("Collected coins: " + collectedCoins);
+
         OnPickedUpCoin?.Invoke(collectedCoins);
-        UpdateScore?.Invoke(points);
+        OnPickedUpCoinMSG?.Invoke();
         OnCollectedCoinSound?.Invoke();
+
+        UpdateScore?.Invoke(points);
+        
     }
 
     public void DeadEnemy()
@@ -30,6 +35,7 @@ public class ScoreManager : ScriptableObject
         Debug.Log("¡El enemigo me ha dicho que ha muerto!");
         points += 50;
         UpdateScore?.Invoke(points);
+        OnDeadEnemyMSG?.Invoke();
     }
 
 
