@@ -10,6 +10,7 @@ public class ScoreManager : ScriptableObject
     public event Action<int> OnPickedUpCoin;
     public event Action<int> UpdateScore;
     public event Action OnCollectedCoinSound;
+    public event Action OnDeadEnemy;
 
     private int collectedCoins = 0;
     private int points = 0;
@@ -22,8 +23,15 @@ public class ScoreManager : ScriptableObject
         OnPickedUpCoin?.Invoke(collectedCoins);
         UpdateScore?.Invoke(points);
         OnCollectedCoinSound?.Invoke();
-        
     }
+
+    public void DeadEnemy()
+    {
+        points += 50;
+        UpdateScore?.Invoke(points);
+    }
+
+
 
 
     public void ResetManager()
