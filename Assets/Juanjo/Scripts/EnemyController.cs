@@ -14,6 +14,9 @@ public class EnemyController : Controller
 
     [SerializeField] private ScoreManager scoreManagerSO;
 
+    [SerializeField] private GameObject exclamacion;
+    [SerializeField] private GameObject interrogacion;
+
     private State<EnemyController> currentState;
     private NavMeshAgent agent;
     private Transform target;
@@ -42,6 +45,8 @@ public class EnemyController : Controller
     public Vector3 UltimaPosicionConocida { get => ultimaPosicionConocida; set => ultimaPosicionConocida = value; }
     public float VidaEnemy { get => vidaEnemy; }
     public ScoreManager ScoreManagerSO { get => scoreManagerSO; set => scoreManagerSO = value; }
+    public GameObject Exclamacion { get => exclamacion; set => exclamacion = value; }
+    public GameObject Interrogacion { get => interrogacion; set => interrogacion = value; }
     #endregion
 
     private void Awake()
