@@ -27,16 +27,19 @@ public class ChaseState : State<EnemyController>
         }
 
         float distancia = Vector3.Distance(controller.transform.position, controller.Target.position);
-
-        // Verificar si el jugador está aún dentro del ángulo de visión y sin obstáculos.
         Vector3 direccionATarget = (controller.Target.position - controller.transform.position).normalized;
-        bool jugadoreEnVision = Vector3.Angle(controller.transform.forward, direccionATarget) <= controller.AnguloVision / 2;
-        bool obstaculoEnVision = Physics.Raycast(controller.transform.position, direccionATarget, distancia, controller.QueEsObstaculo);
+        bool jugadorEnVision = Vector3.Angle(controller.transform.forward, direccionATarget) <= controller.AnguloVision / 2;
+        bool obstaculoEnMedio = Physics.Raycast(controller.transform.position, direccionATarget, distancia, controller.QueEsObstaculo);
 
-        if (!jugadoreEnVision || obstaculoEnVision)
+        if (jugadorEnVision && !obstaculoEnMedio)
         {
-            Debug.Log("Jugador fuera de visión u obtáculo boloqueando, volviendo a patrullar.");
-            controller.ChangeState(controller.PatrolState);
+            // ACTUALIZAR LA ÚLTIMA POSICIÓN CONOCIDA
+            controller.UltimaPosicionConocida = controller.Target.position;
+        }
+        else
+        {
+            Debug.Log("Jugador fuera de visión u obstáculo bloqueando, cambiando a estado de alerta.");
+            controller.ChangeState(controller.AlertState);
             return;
         }
 

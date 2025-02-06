@@ -14,6 +14,9 @@ public class EnemyController : Controller
     private State<EnemyController> currentState;
     private NavMeshAgent agent;
     private Transform target;
+    private Vector3 ultimaPosicionConocida;
+    private SurprisedState surprisedState;
+    private AlertState alertState;
 
     private PatrolState patrolState;
     private ChaseState chaseState;
@@ -28,8 +31,11 @@ public class EnemyController : Controller
     public PatrolState PatrolState { get => patrolState; }
     public ChaseState ChaseState { get => chaseState;  }
     public AttackState AttackState { get => attackState;}
+    public AlertState AlertState { get => alertState; }
+    public SurprisedState SurprisedState { get => surprisedState; }
     public Transform Target { get => target; set => target = value; }
     public float AttackDistance { get => attackDistance; }
+    public Vector3 UltimaPosicionConocida { get => ultimaPosicionConocida; set => ultimaPosicionConocida = value; }
     #endregion
 
     private void Awake()
@@ -37,6 +43,8 @@ public class EnemyController : Controller
         patrolState = GetComponent<PatrolState>();
         chaseState = GetComponent<ChaseState>();
         attackState = GetComponent<AttackState>();
+        surprisedState = GetComponent<SurprisedState>();
+        alertState = GetComponent<AlertState>();
         agent = GetComponent<NavMeshAgent>();
 
         ChangeState(patrolState);

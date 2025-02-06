@@ -52,7 +52,7 @@ public class PatrolState : State<EnemyController>
             if (jugadorEnVision && !obstaculoEnMedio)
             {
                     controller.Target = collsDetectados[0].transform;
-                    controller.ChangeState(controller.ChaseState);
+                    controller.ChangeState(controller.SurprisedState);
                 
             }
 
