@@ -27,6 +27,7 @@ public class ScoreManager : ScriptableObject
 
     public void DeadEnemy()
     {
+        Debug.Log("¡El enemigo me ha dicho que ha muerto!");
         points += 50;
         UpdateScore?.Invoke(points);
     }
