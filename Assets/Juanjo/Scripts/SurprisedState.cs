@@ -24,6 +24,7 @@ public class SurprisedState : State<EnemyController>
         float tiempoSubida = 0.2f;
         float tiempoBajada = 0.2f;
 
+        controller.Exclamacion.SetActive(true);
         //subir
         float t = 0;
         while (t < tiempoSubida)
@@ -55,6 +56,7 @@ public class SurprisedState : State<EnemyController>
     public override void OnExitState()
     {
         controller.Agent.isStopped = false;
+        controller.Exclamacion.SetActive(false);
         Debug.Log("Saliendo del estado de sorpresa.");
     }
 }

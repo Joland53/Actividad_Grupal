@@ -28,6 +28,7 @@ public class AlertState : State<EnemyController>
     private IEnumerator EsperarYBuscar()
     {
         Debug.Log("Iniciando búsqueda en la última posición conocida...");
+        controller.Interrogacion.SetActive(true);
 
         float tiempoRestante = tiempoBusqueda;
 
@@ -125,6 +126,6 @@ public class AlertState : State<EnemyController>
 
     public override void OnExitState()
     {
-
+        controller.Interrogacion.SetActive(false);
     }
 }
