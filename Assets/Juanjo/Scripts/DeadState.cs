@@ -8,9 +8,22 @@ public class DeadState : State<EnemyController>
     {
         base.OnEnterState(controller);
         Debug.Log("¡El enemigo ha muerto!");
+
+        // Activar la animación de muerte
+        controller.Animator.SetTrigger("dead");
+
+        // Sumar puntuación
         controller.ScoreManagerSO.DeadEnemy();
-        controller.gameObject.SetActive(false);
-        
+
+        // Esperar antes de desactivar el enemigo
+        controller.StartCoroutine(DesactivarEnemigo(controller, 5f)); // Esperar 3 segundos
+    }
+
+    // Corrutina para desactivar el enemigo después de un tiempo
+    private IEnumerator DesactivarEnemigo(EnemyController controller, float tiempoEspera)
+    {
+        yield return new WaitForSeconds(tiempoEspera);
+        controller.gameObject.SetActive(false); // Desactiva el enemigo después de la animación
     }
 
     public override void OnUpdateState()
