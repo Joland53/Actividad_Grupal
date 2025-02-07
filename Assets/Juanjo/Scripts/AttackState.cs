@@ -4,20 +4,17 @@ using UnityEngine;
 
 public class AttackState : State<EnemyController>
 {
-    [SerializeField]
-    private float timeBetweenAttacks;
 
     [SerializeField]
     private float baseAttackDamage;
 
-    private float timer;
 
     public override void OnEnterState(EnemyController controller)
     {
         base.OnEnterState(controller);
-        timer = timeBetweenAttacks;
         controller.Agent.isStopped = true;
         controller.Agent.stoppingDistance = controller.AttackDistance;
+        controller.Animator.SetBool("isAttacking", true);
         Debug.Log("Entramos en ataque! >.<");
 
     }
@@ -30,12 +27,7 @@ public class AttackState : State<EnemyController>
             // El enemigo se mantiene en ataque si el jugador está dentro del 120% del rango de ataque
             if (distancia <= controller.AttackDistance * 1.2f)
             {
-                timer += Time.deltaTime;
-                if (timer >= timeBetweenAttacks)
-                {
-                    Debug.Log("Hago Daño!");
-                    timer = 0;
-                }
+                FaceTarget();
             }
             else
             {
@@ -50,9 +42,28 @@ public class AttackState : State<EnemyController>
             controller.ChangeState(controller.PatrolState);
         }
     }
+
+    private void FaceTarget()
+    {
+        Vector3 directionToTarget = (controller.Target.transform.position - transform.position).normalized;
+        directionToTarget.y= 0;
+        transform.rotation = Quaternion.LookRotation(directionToTarget);
+    }
     public override void OnExitState()
     {
         controller.Agent.isStopped = false;
     }
 
+    // Se ejecuta cuando Se TERMINA la animación de ataque.
+
+    private void OnFinishAttackAnimation()
+    {
+        //Se nos ha escapado el jugador de nuestro rango de ataque.
+        if (Vector3.Distance(controller.transform.position, controller.Target.position) > controller.AttackDistance)
+        {
+            Debug.Log("Jugador fuera de rango, volviendo a persecución.");
+            controller.Animator.SetBool("isAttacking", false);
+            controller.ChangeState(controller.ChaseState);
+        }
+    }
 }

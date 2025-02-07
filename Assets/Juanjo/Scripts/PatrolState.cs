@@ -40,6 +40,8 @@ public class PatrolState : State<EnemyController>
     }
     public override void OnUpdateState()
     {
+        controller.Animator.SetFloat("velocity", controller.Agent.velocity.magnitude / controller.MaximunVelocity); //Actualizo la animación de movimiento.
+
         Collider[] collsDetectados = Physics.OverlapSphere(transform.position, controller.RangoVision, controller.QueEsTarget);
         if (collsDetectados.Length > 0) //Hay al menos un target dentro del rango. //1
         {

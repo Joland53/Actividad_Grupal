@@ -4,21 +4,26 @@ using UnityEngine;
 
 public class ChaseState : State<EnemyController>
 {
-    [SerializeField]
-    private float chaseVelocity;
+
     public override void OnEnterState(EnemyController controller)
     {
         base.OnEnterState(controller);
 
         controller.Agent.isStopped = false;
-        controller.Agent.speed = chaseVelocity;
         controller.Agent.stoppingDistance = controller.AttackDistance;
-        controller.Agent.acceleration = 1000000f; // Para que no haya aceleración.
+        controller.Agent.speed = controller.MaximunVelocity;
+        
+        controller.Animator.ResetTrigger("surprised"); // Reseteamos el trigger
+        controller.Animator.SetFloat("velocity", 1f); // Aseguro que la animación de movimiento se actualice.
+
         Debug.Log("Entro en el estado de perseguir!");
     }
 
     public override void OnUpdateState()
     {
+        float velocidadNormalizada = controller.Agent.velocity.magnitude / controller.MaximunVelocity;
+        controller.Animator.SetFloat("velocity", Mathf.Clamp(velocidadNormalizada, 0.1f, 1f)); //Actualizo la animación de movimiento.
+
         if (controller.Target == null)
         {
             Debug.Log("Jugador perdido, volviendo a patrullar.");

@@ -420,8 +420,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 302164342}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.12777704, y: -0.8407858, z: 0.22619842, w: -0.47495964}
-  m_LocalPosition: {x: -15.850178, y: 18.287231, z: -33.78073}
+  m_LocalRotation: {x: 0.18030708, y: 0.3628314, z: -0.071782075, w: 0.9114221}
+  m_LocalPosition: {x: -15.118889, y: 16.761864, z: -54.374233}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -480,7 +480,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 306857868}
-  - component: {fileID: 306857869}
+  - component: {fileID: 306857871}
   - component: {fileID: 306857867}
   - component: {fileID: 306857866}
   - component: {fileID: 306857865}
@@ -488,7 +488,7 @@ GameObject:
   - component: {fileID: 306857870}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -606,21 +606,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &306857869
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 306857863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03d0f8a3999214aeaa477f7ce9d42f96, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healthManagerSO: {fileID: 11400000, guid: 6ffb0cbfa2cda467ab144cabafcb0f7b, type: 2}
-  rotationSpeed: 100
-  movementSpeed: 6
 --- !u!143 &306857870
 CharacterController:
   m_ObjectHideFlags: 0
@@ -647,6 +632,21 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &306857871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 306857863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03d0f8a3999214aeaa477f7ce9d42f96, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthManagerSO: {fileID: 11400000, guid: 6ffb0cbfa2cda467ab144cabafcb0f7b, type: 2}
+  rotationSpeed: 20
+  movementSpeed: 1
 --- !u!1 &335522987
 GameObject:
   m_ObjectHideFlags: 0
@@ -1943,7 +1943,7 @@ GameObject:
   - component: {fileID: 990514521}
   m_Layer: 7
   m_Name: Pared
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2052,7 +2052,7 @@ GameObject:
   m_Icon: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &1018700433
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2133,7 +2133,7 @@ Transform:
   m_GameObject: {fileID: 1018700432}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.05, y: 10.64, z: -40.63}
+  m_LocalPosition: {x: -5.76, y: 10.64, z: -47.343}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2326,7 +2326,7 @@ GameObject:
   - component: {fileID: 1526456032}
   m_Layer: 0
   m_Name: Suelo
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -3763,6 +3763,7 @@ GameObject:
   - component: {fileID: 6898471488279686183}
   - component: {fileID: 6898471488279686182}
   - component: {fileID: 6898471488279686181}
+  - component: {fileID: 6898471488279686191}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -4136,7 +4137,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 083fb208e36a9bc4aaf0a34fa354504a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chaseVelocity: 3
 --- !u!114 &6898471488279686189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4150,8 +4150,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ruta: {fileID: 1394318327}
-  patrolVelocity: 1.5
-  tiempoDeEspera: 0.2
+  patrolVelocity: 2.5
+  tiempoDeEspera: 1
 --- !u!114 &6898471488279686190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4167,6 +4167,7 @@ MonoBehaviour:
   rangoVision: 8
   anguloVision: 90
   attackDistance: 2
+  maximunVelocity: 5
   vidaEnemy: 20
   queEsTarget:
     serializedVersion: 2
@@ -4177,6 +4178,27 @@ MonoBehaviour:
   scoreManagerSO: {fileID: 11400000, guid: 6034a7fbcb8084a8f9e59420ff6c770f, type: 2}
   exclamacion: {fileID: 638045436}
   interrogacion: {fileID: 1428188182}
+--- !u!95 &6898471488279686191
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6122533640286140062}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d1e0dadd2f92ad3479be0547ac890821, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6987302045994665919
 GameObject:
   m_ObjectHideFlags: 0

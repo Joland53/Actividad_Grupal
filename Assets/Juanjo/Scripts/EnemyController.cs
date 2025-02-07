@@ -8,6 +8,7 @@ public class EnemyController : Controller
     [SerializeField] private float rangoVision;
     [SerializeField] private float anguloVision;
     [SerializeField] private float attackDistance;
+    [SerializeField] private float maximunVelocity;
     [SerializeField] private float vidaEnemy;
     [SerializeField] private LayerMask queEsTarget;
     [SerializeField] private LayerMask queEsObstaculo;
@@ -20,7 +21,9 @@ public class EnemyController : Controller
     private State<EnemyController> currentState;
     private NavMeshAgent agent;
     private Transform target;
+    private Animator animator;
     private Vector3 ultimaPosicionConocida;
+
     private SurprisedState surprisedState;
     private AlertState alertState;
     private DeadState deadState;
@@ -47,6 +50,8 @@ public class EnemyController : Controller
     public ScoreManager ScoreManagerSO { get => scoreManagerSO; set => scoreManagerSO = value; }
     public GameObject Exclamacion { get => exclamacion; set => exclamacion = value; }
     public GameObject Interrogacion { get => interrogacion; set => interrogacion = value; }
+    public Animator Animator { get => animator; }
+    public float MaximunVelocity { get => maximunVelocity; }
     #endregion
 
     private void Awake()
@@ -58,7 +63,8 @@ public class EnemyController : Controller
         alertState = GetComponent<AlertState>();
         deadState = GetComponent<DeadState>();
         agent = GetComponent<NavMeshAgent>();
- 
+        animator = GetComponent<Animator>();
+
         ChangeState(patrolState);
     }
 

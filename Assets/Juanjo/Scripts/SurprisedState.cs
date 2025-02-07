@@ -12,6 +12,7 @@ public class SurprisedState : State<EnemyController>
         base.OnEnterState(controller);
         controller.Agent.isStopped = true;
         Debug.Log("¡Sorpresa! El enemigo ha visto al jugador.");
+        controller.Animator.SetTrigger("surprised");
 
         // Salto de sorpresa
         controller.StartCoroutine(EsperarYSaltar());
@@ -57,6 +58,8 @@ public class SurprisedState : State<EnemyController>
     {
         controller.Agent.isStopped = false;
         controller.Exclamacion.SetActive(false);
+        controller.Animator.ResetTrigger("surprised"); // Reseteamos el trigger
+        controller.Animator.SetFloat("velocity", 1f); // Aseguro que la animación de movimiento se actualice.
         Debug.Log("Saliendo del estado de sorpresa.");
     }
 }
