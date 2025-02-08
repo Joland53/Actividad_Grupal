@@ -3,6 +3,7 @@
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] HealthManager healthManagerSO;
+    [SerializeField] SoundManager soundManagerSO;
 
     public float movementSpeed = 5f;
     public float jumpHeight = 2f;
@@ -80,6 +81,7 @@ public class PlayerMovement : MonoBehaviour
         // 📌 DISPARO CON CLIC IZQUIERDO
         if (Input.GetButtonDown("Fire1"))
         {
+            soundManagerSO.WeaponShooted();
             Shoot();
         }
     }
