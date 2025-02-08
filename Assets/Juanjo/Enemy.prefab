@@ -631,7 +631,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rangoVision: 8
-  anguloVision: 90
+  anguloVision: 160
   attackDistance: 3.5
   maximunVelocity: 5
   vidaEnemy: 50
@@ -660,7 +660,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ruta: {fileID: 0}
   patrolVelocity: 2.5
-  tiempoDeEspera: 1
+  tiempoDeEspera: 0.5
 --- !u!114 &8787143196645466783
 MonoBehaviour:
   m_ObjectHideFlags: 0
