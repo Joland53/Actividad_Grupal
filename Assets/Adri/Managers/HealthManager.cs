@@ -38,15 +38,23 @@ public class HealthManager : ScriptableObject
         Debug.Log("Se ha acabado el tiempo. El jugador pierde.");
         OnPlayerDead?.Invoke();
     }
+
     public void PlayerHealed()
     {
-        if (playerHealth <= 100)
+        if (playerHealth <= 1f)
         {
             Debug.Log ("Te has curado");
+            playerHealth += healthValue;
+            OnPlayerHealed?.Invoke(playerHealth);
+
+            if(playerHealth > 1f)
+            {
+                playerHealth = 1f;
+            }           
+            Debug.Log("Current Health: " + playerHealth);
         }
 
-        playerHealth += healthValue;
-        OnPlayerHealed?.Invoke(playerHealth);
+ 
     }
 
     public void Success()
