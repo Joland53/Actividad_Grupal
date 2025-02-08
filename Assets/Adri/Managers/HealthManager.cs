@@ -46,6 +46,7 @@ public class HealthManager : ScriptableObject
             Debug.Log ("Te has curado");
             playerHealth += healthValue;
             OnPlayerHealed?.Invoke(playerHealth);
+            OnPlayerHealedSound?.Invoke();
 
             if(playerHealth > 1f)
             {

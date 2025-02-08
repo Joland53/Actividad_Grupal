@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthManagerSO: {fileID: 11400000, guid: 6ffb0cbfa2cda467ab144cabafcb0f7b, type: 2}
+  successVFX: {fileID: 5374932280053611809}
 --- !u!198 &5374932280053611809
 ParticleSystem:
   m_ObjectHideFlags: 0
