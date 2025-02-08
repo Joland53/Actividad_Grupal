@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class TimerController : MonoBehaviour
 {
+    [SerializeField] private HealthManager healthManagerSO;
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private float timeRemaining = 360f;
     private bool isTimerRunning = true;
@@ -24,9 +25,6 @@ public class TimerController : MonoBehaviour
             yield return new WaitForSeconds(1f);
             timeRemaining --;
         }
-        
-        /*
-        // Aquí llegará a 0, y hay que añadir la instrucción para 
-        */
+        healthManagerSO.TimeOver();
     }
 }

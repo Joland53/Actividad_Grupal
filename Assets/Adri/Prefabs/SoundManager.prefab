@@ -47,8 +47,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthManagerSO: {fileID: 11400000, guid: 6ffb0cbfa2cda467ab144cabafcb0f7b, type: 2}
   scoreManagerSO: {fileID: 11400000, guid: 6034a7fbcb8084a8f9e59420ff6c770f, type: 2}
+  soundManagerSO: {fileID: 11400000, guid: 9a438911c8d2d4cc3816ee0587622cc5, type: 2}
   collectedCoinSound: {fileID: 8300000, guid: 2814e26b3af214f47bc54aed9955965d, type: 3}
   damagedPlayerSound: {fileID: 0}
+  shootSound: {fileID: 8300000, guid: a445deb8a46ad4179aa60c3a68f5d5f9, type: 3}
+  healedPlayerSound: {fileID: 8300000, guid: cbb5efeb83fd94a4e8e586bab6b2d56f, type: 3}
 --- !u!82 &3251326212529285841
 AudioSource:
   m_ObjectHideFlags: 0

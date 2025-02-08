@@ -10,16 +10,18 @@ public class HealthManager : ScriptableObject
     public event Action<float> OnPlayerDamaged;
     public event Action<float> OnPlayerHealed;
     public event Action OnPlayerDamagedSound;
+    public event Action OnPlayerHealedSound;
     public event Action OnPlayerDead;
+    public event Action OnPlayerSucceded;
 
 
     private float playerHealth = 1f;
     private float damageValue = 0.05f;
-    private float healthValue = 20f;
+    private float healthValue = 0.20f;
 
     public void PlayerDamaged()
     {
-        if (playerHealth <= 0)
+        if (playerHealth <= 0f)
         {
             Debug.Log ("Has muerto");   
             OnPlayerDead?.Invoke();   
@@ -33,15 +35,33 @@ public class HealthManager : ScriptableObject
 
     public void PlayerHealed()
     {
-        if (playerHealth <= 100)
+        if (playerHealth <= 1f)
         {
             Debug.Log ("Te has curado");
-        }
+            playerHealth += healthValue;
+            
+            OnPlayerHealed?.Invoke(playerHealth);
+            OnPlayerHealedSound?.Invoke();
+            
+            if (playerHealth > 1f)
+            {
+                playerHealth = 1f;
+            }
 
-        playerHealth += healthValue;
-        OnPlayerHealed?.Invoke(playerHealth);
+            Debug.Log("Current Health: " + playerHealth);
+        } 
     }
-    
+
+    public void TimeOver()
+    {
+        OnPlayerDead?.Invoke();
+    }
+
+    public void Success()
+    {
+        OnPlayerSucceded?.Invoke();
+    }
+
     public void ResetManager()
     {
         playerHealth = 1f;

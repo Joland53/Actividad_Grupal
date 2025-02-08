@@ -6,7 +6,8 @@ public class ScoresController : MonoBehaviour
     [SerializeField] private ScoreManager scoreManagerSO;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI coinsText;
-    [SerializeField] private TextMeshProUGUI finalScoreText;
+    [SerializeField] private TextMeshProUGUI finalScoreTextGO;
+    [SerializeField] private TextMeshProUGUI finalScoreTextV;
 
     private void Start()
     {
@@ -38,6 +39,7 @@ public class ScoresController : MonoBehaviour
 
     private void WriteFinalScore(int points)
     {
-         finalScoreText.text = "Your final score is: " + points;
+        finalScoreTextGO.text = "Your final score is: " + points;
+        finalScoreTextV.text = "Your final score is: " + points;
     }
 }
