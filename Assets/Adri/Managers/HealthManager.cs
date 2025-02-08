@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -13,6 +14,8 @@ public class HealthManager : ScriptableObject
     public event Action OnPlayerHealedSound;
     public event Action OnPlayerDead;
     public event Action OnPlayerSucceded;
+    public event Action OnPlayerPaused;
+    public event Action OnPlayerResumed;
 
 
     private float playerHealth = 1f;
@@ -58,6 +61,18 @@ public class HealthManager : ScriptableObject
  
     }
 
+    public void PauseScreen()
+    {
+        Debug.Log("Has pausado el juego");
+        OnPlayerPaused?.Invoke();
+
+    }
+
+    public void ResumeGame()
+    {
+        Debug.Log("Has reanudado el juego");
+        OnPlayerResumed?.Invoke();
+    }
     public void Success()
     {
         OnPlayerSucceded?.Invoke();

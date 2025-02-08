@@ -10,6 +10,8 @@ public class EnemyController : Controller
     [SerializeField] private float attackDistance;
     [SerializeField] private float maximunVelocity;
     [SerializeField] private float vidaEnemy;
+    [SerializeField] private Collider collider;
+    [SerializeField] private Collider colliderPie;
     [SerializeField] private LayerMask queEsTarget;
     [SerializeField] private LayerMask queEsObstaculo;
 
@@ -23,6 +25,7 @@ public class EnemyController : Controller
     private Transform target;
     private Animator animator;
     private Vector3 ultimaPosicionConocida;
+    
 
     private SurprisedState surprisedState;
     private AlertState alertState;
@@ -94,6 +97,8 @@ public class EnemyController : Controller
             if (vidaEnemy <= 0)
             {
                 //scoreManagerSO.DeadEnemy();
+                collider.enabled = false;
+                colliderPie.enabled = false;
                 ChangeState(deadState);
             }
             

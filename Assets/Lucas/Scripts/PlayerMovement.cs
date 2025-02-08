@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private float xRotation = 0f;
     private Vector3 velocity;
     private bool isGrounded;
+    private bool canShoot = true;
 
     [Header("Shooting Settings")]
     public GameObject bulletPrefab; // Prefab de la bala
@@ -32,6 +33,16 @@ public class PlayerMovement : MonoBehaviour
         Cursor.visible = false;
     }
 
+    private void OnEnable()
+    {
+        healthManagerSO.OnPlayerPaused += PauseGame;
+        healthManagerSO.OnPlayerResumed += ResumeGame;
+    }
+    private void OnDisable() 
+    {
+        healthManagerSO.OnPlayerPaused -= PauseGame;
+        healthManagerSO.OnPlayerResumed -= ResumeGame;
+    }
     void Update()
     {
         // Detección de suelo
@@ -79,13 +90,28 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
 
         // 📌 DISPARO CON CLIC IZQUIERDO
-        if (Input.GetButtonDown("Fire1"))
+        if (canShoot)
         {
-            soundManagerSO.WeaponShooted();
-            Shoot();
+            if (Input.GetButtonDown("Fire2"))
+            {
+                soundManagerSO.WeaponShooted();
+                Shoot();
+            }
         }
+
     }
 
+    public void PauseGame()
+    {
+        canShoot = false;
+        mouseSensitivity = 0f;
+    }
+
+    public void ResumeGame()
+    {
+        canShoot = true;
+        mouseSensitivity = 2f;
+    }   
 
     private void OnTriggerEnter(Collider other)
     {
@@ -96,7 +122,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // 📌 Método para Disparar
-    void Shoot()
+    public void Shoot()
     {
         if (bulletPrefab == null || bulletSpawnPoint == null)
         {
@@ -114,4 +140,5 @@ public class PlayerMovement : MonoBehaviour
             bulletRb.AddForce(playerCamera.transform.forward * bulletForce, ForceMode.Impulse);
         }
     }
+
 }
