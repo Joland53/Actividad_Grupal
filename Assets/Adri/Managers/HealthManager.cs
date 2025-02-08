@@ -33,6 +33,11 @@ public class HealthManager : ScriptableObject
         OnPlayerDamagedSound?.Invoke();
     }
 
+    public void TimeOver()
+    {
+        Debug.Log("Se ha acabado el tiempo. El jugador pierde.");
+        OnPlayerDead?.Invoke();
+    }
     public void PlayerHealed()
     {
         if (playerHealth <= 100)

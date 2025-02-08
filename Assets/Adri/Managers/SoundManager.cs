@@ -9,7 +9,7 @@ public class SoundManager : ScriptableObject
     public Action OnShootSound;
 
 
-    private void WeaponShooted()
+    public void WeaponShooted()
     {
         OnShootSound?.Invoke();
     }
