@@ -19,7 +19,6 @@ public class NotificationsController : MonoBehaviour
     {
         scoreManagerSO.OnDeadEnemyMSG += ShowDeadEnemyMessage;
         scoreManagerSO.OnPickedUpCoinMSG += ShowPickedUpCoinMessage;
-        
     }
 
     private void OnDisable()

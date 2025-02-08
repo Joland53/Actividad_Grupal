@@ -8,6 +8,8 @@ public class HealthController : MonoBehaviour
 {
     [SerializeField] private HealthManager healthManagerSO;
     [SerializeField] private Image healthFillImage;
+    [SerializeField] private GameObject DeadScreen;
+    [SerializeField] private GameObject HUDScreen;
 
     // Start is called before the first frame update
     void Start()
@@ -18,16 +20,26 @@ public class HealthController : MonoBehaviour
     private void OnEnable()
     {
         healthManagerSO.OnPlayerDamaged += UpdateHealthFillImage;
-        
+        healthManagerSO.OnPlayerDead += LoadDeadScreen;
+        healthManagerSO.OnPlayerHealed += UpdateHealthFillImage;
     }
 
     private void OnDisable()
     {
-        healthManagerSO.OnPlayerDamaged -= UpdateHealthFillImage;        
+        healthManagerSO.OnPlayerDamaged -= UpdateHealthFillImage;     
+        healthManagerSO.OnPlayerDead -= LoadDeadScreen;
+        healthManagerSO.OnPlayerHealed -= UpdateHealthFillImage;
     }
 
     private void UpdateHealthFillImage (float playerHealth)
     {
         healthFillImage.fillAmount = playerHealth;
+        
+    }
+
+    private void LoadDeadScreen()
+    {
+        HUDScreen.SetActive (false);
+        DeadScreen.SetActive(true);
     }
 }
