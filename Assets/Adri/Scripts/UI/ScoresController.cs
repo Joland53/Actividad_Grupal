@@ -4,9 +4,9 @@ using UnityEngine;
 public class ScoresController : MonoBehaviour
 {
     [SerializeField] private ScoreManager scoreManagerSO;
-    [SerializeField] private HealthManager healthManagerSO;
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI coinsText;
+    [SerializeField] private TextMeshProUGUI finalScoreText;
 
     private void Start()
     {
@@ -15,6 +15,7 @@ public class ScoresController : MonoBehaviour
     private void OnEnable()
     {
         scoreManagerSO.UpdateScore += UpdateScoreText;
+        scoreManagerSO.UpdateScore += WriteFinalScore;
         scoreManagerSO.OnPickedUpCoin += UpdateCoinsText;
     }
 
@@ -22,6 +23,7 @@ public class ScoresController : MonoBehaviour
     {
         scoreManagerSO.UpdateScore -= UpdateScoreText;
         scoreManagerSO.OnPickedUpCoin -= UpdateCoinsText;
+        scoreManagerSO.UpdateScore -= WriteFinalScore;
     }
 
     private void UpdateScoreText(int points)
@@ -34,8 +36,8 @@ public class ScoresController : MonoBehaviour
         coinsText.text = "Coins: " + collectedCoins;
     }
 
-    private void WriteScore(int points)
+    private void WriteFinalScore(int points)
     {
-         
+         finalScoreText.text = "Your final score is: " + points;
     }
 }

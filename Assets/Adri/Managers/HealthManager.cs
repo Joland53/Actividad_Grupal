@@ -41,6 +41,7 @@ public class HealthManager : ScriptableObject
         playerHealth += healthValue;
         OnPlayerHealed?.Invoke(playerHealth);
     }
+    
     public void ResetManager()
     {
         playerHealth = 1f;
