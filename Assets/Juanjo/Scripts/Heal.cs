@@ -11,6 +11,7 @@ public class Heal : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             healthManagerSO.PlayerHealed();
+            Destroy(gameObject);
         }
     }
 }

@@ -15,7 +15,7 @@ public class HealthManager : ScriptableObject
 
     private float playerHealth = 1f;
     private float damageValue = 0.05f;
-    private float healthValue = 20f;
+    private float healthValue = 0.50f;
 
     public void PlayerDamaged()
     {
@@ -33,13 +33,14 @@ public class HealthManager : ScriptableObject
 
     public void PlayerHealed()
     {
-        if (playerHealth <= 100)
+        if (playerHealth < 1)
         {
             Debug.Log ("Te has curado");
+            playerHealth += healthValue;
+            Debug.Log("Current Health: " + playerHealth);
+            OnPlayerHealed?.Invoke(playerHealth);
         }
 
-        playerHealth += healthValue;
-        OnPlayerHealed?.Invoke(playerHealth);
     }
     
     public void ResetManager()
