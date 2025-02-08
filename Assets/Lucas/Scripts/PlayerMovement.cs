@@ -1,14 +1,18 @@
-﻿using UnityEngine;
+﻿﻿using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] HealthManager healthManagerSO;
+
     public float movementSpeed = 5f;
-    public float jumpForce = 7f;
+    public float jumpHeight = 2f;
+    public float gravity = -9.81f;
     public float mouseSensitivity = 2f;
 
-    private Rigidbody rb;
+    private CharacterController controller;
     private Camera playerCamera;
     private float xRotation = 0f;
+    private Vector3 velocity;
     private bool isGrounded;
 
     [Header("Shooting Settings")]
@@ -18,10 +22,10 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        playerCamera = GetComponentInChildren<Camera>();
+        healthManagerSO.ResetManager();
 
-        rb.freezeRotation = true;
+        controller = GetComponent<CharacterController>();
+        playerCamera = GetComponentInChildren<Camera>();
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -29,53 +33,63 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // Movimiento con WASD y Flechas
-        float moveX = 0f;
-        float moveZ = 0f;
+        // Detección de suelo
+        isGrounded = controller.isGrounded;
+        if (isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f; // Mantiene al jugador pegado al suelo
+        }
 
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow)) moveZ = 1f;
-        if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) moveZ = -1f;
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) moveX = -1f;
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) moveX = 1f;
+        // Movimiento con WASD
+        float moveX = Input.GetAxisRaw("Horizontal"); // 🔥 Cambiar a GetAxisRaw para evitar suavizado
+        float moveZ = Input.GetAxisRaw("Vertical");
 
         Vector3 moveDirection = (transform.right * moveX + transform.forward * moveZ).normalized;
-        rb.velocity = new Vector3(moveDirection.x * movementSpeed, rb.velocity.y, moveDirection.z * movementSpeed);
+
+        if (moveDirection.magnitude > 0)
+        {
+            controller.Move(moveDirection * movementSpeed * Time.deltaTime);
+        }
+
+        // 📌 Evita la inercia: Si no hay input, detiene el movimiento
+        else
+        {
+            controller.Move(Vector3.zero);
+        }
 
         // Movimiento de la cámara con el ratón
-        float mouseX = Input.GetAxis("Mouse X");
-        float mouseY = Input.GetAxis("Mouse Y");
+        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
+        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
-        if (mouseX != 0 || mouseY != 0)
-        {
-            mouseX *= mouseSensitivity;
-            mouseY *= mouseSensitivity;
+        transform.Rotate(Vector3.up * mouseX);
 
-            transform.Rotate(Vector3.up * mouseX);
-
-            xRotation -= mouseY;
-            xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-            playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        }
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
 
         // Salto con "Espacio"
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            isGrounded = false;
+            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // Calcula la fuerza necesaria para saltar
         }
 
+        // Aplicar gravedad
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
+
         // 📌 DISPARO CON CLIC IZQUIERDO
-        if (Input.GetButtonDown("Fire1")) // "Fire1" es el botón del clic izquierdo
+        if (Input.GetButtonDown("Fire1"))
         {
             Shoot();
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        if (other.CompareTag("Enemy"))
         {
-            isGrounded = true;
+            healthManagerSO.PlayerDamaged();
         }
     }
 
