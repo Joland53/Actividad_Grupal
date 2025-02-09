@@ -10,7 +10,7 @@ public class SoundController : MonoBehaviour
 
     private AudioSource audioSource;
     [SerializeField] private AudioClip collectedCoinSound;
-    [SerializeField] private AudioClip damagedPlayerSound;
+    [SerializeField] private AudioClip deadEnemy;
     [SerializeField] private AudioClip shootSound;
     [SerializeField] private AudioClip healedPlayerSound;
 
@@ -20,7 +20,7 @@ public class SoundController : MonoBehaviour
     }
     private void OnEnable()
     {
-        healthManagerSO.OnPlayerDamagedSound += DamagedPlayerSound;
+        soundManagerSO.OnDeadEnemy += DeadEnemySound;
         healthManagerSO.OnPlayerHealedSound += HealedPlayerSound;
         scoreManagerSO.OnCollectedCoinSound += CollectedCoinSound;
         soundManagerSO.OnShootSound += ShootSound;
@@ -29,17 +29,17 @@ public class SoundController : MonoBehaviour
 
     private void OnDisable()
     {
-        healthManagerSO.OnPlayerDamagedSound -= DamagedPlayerSound;
+        soundManagerSO.OnDeadEnemy -= DeadEnemySound;
         healthManagerSO.OnPlayerHealedSound -= HealedPlayerSound;
         scoreManagerSO.OnCollectedCoinSound -= CollectedCoinSound;
         soundManagerSO.OnShootSound -= ShootSound;        
     }
     
-    private void DamagedPlayerSound()
+    private void DeadEnemySound()
     {
-        if (audioSource != null && damagedPlayerSound != null)
+        if (audioSource != null && deadEnemy != null)
         {
-            audioSource.PlayOneShot(damagedPlayerSound);
+            audioSource.PlayOneShot(deadEnemy);
         }
     }
 

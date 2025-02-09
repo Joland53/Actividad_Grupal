@@ -7,11 +7,17 @@ using UnityEngine;
 public class SoundManager : ScriptableObject
 {
     public Action OnShootSound;
+    public Action OnDeadEnemy;
 
 
     public void WeaponShooted()
     {
         OnShootSound?.Invoke();
+    }
+
+    public void DeadEnemy()
+    {
+        OnDeadEnemy?.Invoke();
     }
 
 }

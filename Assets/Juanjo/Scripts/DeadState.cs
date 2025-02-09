@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class DeadState : State<EnemyController>
 {
+    [SerializeField] private SoundManager soundManagerSO;
     public override void OnEnterState(EnemyController controller)
     {
         base.OnEnterState(controller);
         Debug.Log("¡El enemigo ha muerto!");
+
+        soundManagerSO.DeadEnemy();
 
         // Desactivar el movimiento del enemigo
         controller.Agent.isStopped = true;

@@ -49,7 +49,7 @@ MonoBehaviour:
   scoreManagerSO: {fileID: 11400000, guid: 6034a7fbcb8084a8f9e59420ff6c770f, type: 2}
   soundManagerSO: {fileID: 11400000, guid: 9a438911c8d2d4cc3816ee0587622cc5, type: 2}
   collectedCoinSound: {fileID: 8300000, guid: 2814e26b3af214f47bc54aed9955965d, type: 3}
-  damagedPlayerSound: {fileID: 0}
+  deadEnemy: {fileID: 8300000, guid: fe4d01c91b3c94e0fa0415c06ad878b9, type: 3}
   shootSound: {fileID: 8300000, guid: a445deb8a46ad4179aa60c3a68f5d5f9, type: 3}
   healedPlayerSound: {fileID: 8300000, guid: cbb5efeb83fd94a4e8e586bab6b2d56f, type: 3}
 --- !u!82 &3251326212529285841

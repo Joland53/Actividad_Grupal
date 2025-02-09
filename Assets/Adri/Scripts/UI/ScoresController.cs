@@ -34,7 +34,7 @@ public class ScoresController : MonoBehaviour
 
     private void UpdateCoinsText (int collectedCoins)
     {
-        coinsText.text = "Coins: " + collectedCoins;
+        coinsText.text = "Coins: " + collectedCoins + " / 68";
     }
 
     private void WriteFinalScore(int points)

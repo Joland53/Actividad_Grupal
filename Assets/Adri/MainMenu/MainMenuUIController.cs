@@ -131,12 +131,12 @@ public class MainMenuUIController : MonoBehaviour
     // AJUSTES DE MÚSICA Y SONIDO
     public void SetNewVolumeToMusic(float volume)                                
     {
-        mainMixer.SetFloat("musicVolume", volume);                                                     
+        mainMixer.SetFloat("MusicVolume", volume);                                                     
     }
 
     public void SetNewVolumeToSounds(float volume)                                
     {
-        mainMixer.SetFloat("soundsVolume", volume);                                                     
+        mainMixer.SetFloat("SoundsVolume", volume);                                                     
     }
 
     // AJUSTES DE ESTADO DEL JUEGO

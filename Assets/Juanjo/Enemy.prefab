@@ -630,11 +630,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b043b05bf35e61e4f9b47549ed7f4b8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rangoVision: 8
+  rangoVision: 10
   anguloVision: 160
   attackDistance: 3.5
-  maximunVelocity: 5
-  vidaEnemy: 50
+  maximunVelocity: 10
+  vidaEnemy: 100
   collider: {fileID: 3063193513468236651}
   colliderPie: {fileID: 7035540055039851966}
   queEsTarget:
@@ -659,7 +659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ruta: {fileID: 0}
-  patrolVelocity: 2.5
+  patrolVelocity: 5
   tiempoDeEspera: 0.5
 --- !u!114 &8787143196645466783
 MonoBehaviour:
@@ -726,6 +726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b510741f11b8aef488161ca68b93b92d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  soundManagerSO: {fileID: 11400000, guid: 9a438911c8d2d4cc3816ee0587622cc5, type: 2}
 --- !u!136 &3063193513468236651
 CapsuleCollider:
   m_ObjectHideFlags: 0
