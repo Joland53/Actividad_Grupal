@@ -9,6 +9,9 @@ public class DeadState : State<EnemyController>
         base.OnEnterState(controller);
         Debug.Log("¡El enemigo ha muerto!");
 
+        // Desactivar el movimiento del enemigo
+        controller.Agent.isStopped = true;
+
         // Activar la animación de muerte
         controller.Animator.SetTrigger("dead");
 

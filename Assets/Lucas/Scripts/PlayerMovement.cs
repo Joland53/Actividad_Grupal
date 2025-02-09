@@ -92,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
         // 📌 DISPARO CON CLIC IZQUIERDO
         if (canShoot)
         {
-            if (Input.GetButtonDown("Fire2"))
+            if (Input.GetButtonDown("Fire1"))
             {
                 soundManagerSO.WeaponShooted();
                 Shoot();

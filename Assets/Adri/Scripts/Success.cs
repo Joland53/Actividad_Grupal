@@ -6,6 +6,8 @@ public class Success : MonoBehaviour
 {
     [SerializeField] private HealthManager healthManagerSO;
 
+    [SerializeField] private PlayerMovement playerMovement;
+
     [SerializeField] private ParticleSystem successVFX;
 
     void Start()
@@ -20,6 +22,12 @@ public class Success : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
+            Time.timeScale = 0f;
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
+            playerMovement.PauseGame();
             healthManagerSO.Success();
         }
         //Destroy(gameObject);

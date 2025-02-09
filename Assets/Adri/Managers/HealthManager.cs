@@ -26,7 +26,12 @@ public class HealthManager : ScriptableObject
     {
         if (playerHealth <= 0f)
         {
-            Debug.Log ("Has muerto");   
+            Debug.Log ("Has muerto");
+            Time.timeScale = 0f;
+
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+
             OnPlayerDead?.Invoke();   
         }
 
