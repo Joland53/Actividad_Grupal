@@ -10,12 +10,14 @@ public class BulletDestroyer : MonoBehaviour
         Destroy(gameObject, destroyTime);
     }
 
-    void OnCollisionEnter(Collision collision)
+    public void OnTriggerEnter(Collider other)
     {
-        // 📌 Si la bala choca con un objeto que tiene las tags "Wall", "Ground" o "Enemy", se destruye
-        if (collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("Enemy"))
         {
-            Destroy(gameObject); // 💥 Se destruye la bala
+            // 📌 Si la bala choca con un objeto que tiene las tags "Wall", "Ground" o "Enemy", se destruye
+            if (other.CompareTag("Wall") || other.CompareTag("Ground") || other.CompareTag("Enemy"))
+            {
+                Destroy(gameObject); // 💥 Se destruye la bala
+            }
         }
     }
 }
